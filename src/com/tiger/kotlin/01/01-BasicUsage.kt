@@ -1,12 +1,17 @@
 package com.tiger.kotlin.`01`
 
 import java.time.Year
+import java.util.*
 
 fun main() {
 //    println(sum(1, 33))
 //    variableVal()
 //    variableVarDing()
-    stringTemplate()
+//    stringTemplate()
+//    printProduct("2", "33")
+//    printProduct("w", "f")
+
+    cycleFor(items = listOf("aa","bbb","cc","dd"))
 }
 
 //# 基础
@@ -102,3 +107,53 @@ fun conditionalExpressionIf3(a: Int, b: Int) = if (a > b) a else b
 //## 空值与 null 检测
 //当某个变量的值可以为 null 的时候，必须在声明处的类型后添加 ? 来标识该引用可为空。
 //如果 str 的内容不是数字返回 null：
+
+fun parseInt(str: String): Int? {
+    return str.toIntOrNull()
+}
+
+fun printProduct(arg1: String, arg2: String) {
+    val x = parseInt(arg1)
+    val y = parseInt(arg2)
+
+    if (x != null && y != null) {
+        println(x * y)
+    } else {
+        println("'$arg1' or '${arg2}' is not a number")
+    }
+}
+
+//## 类型检测与自动类型转换
+//is 运算符检测一个表达式是否某类型的一个实例。 如果一个不可变的局部变量或属性已经判断出为某类型，
+// 那么检测后的分支中可以直接当作该类型使用，无需显式转换：
+
+fun getStringLength(objects: Any): Int? {
+    if (objects is String) {
+        return objects.length
+    }
+    return null
+}
+
+fun getStringLength1(objects: Any): Int? {
+    if (objects !is String) {
+        return null
+    }
+    return objects.length
+}
+
+fun getStringLength2(objects: Any): Int? {
+    if (objects is String && objects.length > 0) {
+        return objects.length
+    }
+    return null
+}
+
+//## for 循环
+
+val items = listOf<String>("AAA", "bb", "ee", "dd", "fff", "tt", "hhh")
+fun cycleFor(items: List<String>) {
+    for (item in items) {
+        println(item)
+    }
+}
+

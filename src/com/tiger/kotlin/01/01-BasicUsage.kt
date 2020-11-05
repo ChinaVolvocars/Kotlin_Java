@@ -11,7 +11,11 @@ fun main() {
 //    printProduct("2", "33")
 //    printProduct("w", "f")
 
-    cycleFor(items = listOf("aa","bbb","cc","dd"))
+//    cycleFor(items = listOf("aa", "bbb", "cc", "dd"))
+//    cycleFor1()
+//    cycleWhile()
+
+    rangeUse()
 }
 
 //# 基础
@@ -154,6 +158,43 @@ val items = listOf<String>("AAA", "bb", "ee", "dd", "fff", "tt", "hhh")
 fun cycleFor(items: List<String>) {
     for (item in items) {
         println(item)
+    }
+}
+
+fun cycleFor1() {
+    val items = listOf<String>("AAA", "bb", "ee", "dd", "fff", "tt", "hhh")
+    for (index in items.indices) {
+        println("item 位置：${index},数据：${items[index]}")
+    }
+}
+
+//## while 循环
+fun cycleWhile() {
+    val listOf = listOf<String>("A", "Z", "C", "D", "G")
+    var index = 0
+
+    while (index < listOf.size) {
+        println("item 位置：${index},数据：${listOf[index]}")
+//        index += 1
+        index++
+    }
+}
+
+//## when 表达式
+fun describe(objects: Any): String =
+    when (objects) {
+        1 -> "IBE"
+        "H" -> "D"
+        is Long -> "Long"
+        else -> "unknown"
+    }
+
+//## 使用区间（range）
+fun rangeUse() {
+    val x = 10
+    val y = 9
+    if (x in 1..y + 1) {
+        println("--------")
     }
 }
 

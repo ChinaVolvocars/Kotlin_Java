@@ -15,7 +15,8 @@ fun main() {
 //    cycleFor1()
 //    cycleWhile()
 
-    rangeUse()
+//    rangeUse()
+    rangeUse1()
 }
 
 //# 基础
@@ -190,11 +191,25 @@ fun describe(objects: Any): String =
     }
 
 //## 使用区间（range）
+
+//使用 in 运算符来检测某个数字是否在指定区间内
 fun rangeUse() {
     val x = 10
     val y = 9
     if (x in 1..y + 1) {
         println("--------")
+    }
+}
+
+//检测某个数字是否在指定区间外
+fun rangeUse1() {
+    val list = listOf<String>("A", "", "B", "C")
+    if (-1 !in 0..list.lastIndex) {
+        println("-1 is out of range")
+    }
+
+    if (list.size !in list.indices) {
+        println("list size is out of valid list indices range, too")
     }
 }
 

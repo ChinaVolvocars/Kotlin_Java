@@ -1,8 +1,5 @@
 package com.tiger.kotlin.`01`
 
-import java.time.Year
-import java.util.*
-
 fun main() {
 //    println(sum(1, 33))
 //    variableVal()
@@ -16,7 +13,12 @@ fun main() {
 //    cycleWhile()
 
 //    rangeUse()
-    rangeUse1()
+//    rangeUse1()
+//    rangeUse2()
+//    rangeUse3()
+//    iterateOverTheCollection()
+//    inOperator()
+    laAndFilerMap()
 }
 
 //# 基础
@@ -203,13 +205,111 @@ fun rangeUse() {
 
 //检测某个数字是否在指定区间外
 fun rangeUse1() {
-    val list = listOf<String>("A", "", "B", "C")
+    val list = listOf<String>("A", "吧", "B", "C")
     if (-1 !in 0..list.lastIndex) {
         println("-1 is out of range")
     }
-
     if (list.size !in list.indices) {
         println("list size is out of valid list indices range, too")
     }
+    val lastIndex = list.lastIndex
+    println(lastIndex)
+    //创建一个从此值到指定的[other]值的范围
+    val intRange = 0..list.lastIndex
+    for (i in intRange) {
+        println(i)
+    }
 }
 
+//区间迭代:
+fun rangeUse2() {
+    for (x in 1..5) {
+        println(x)
+    }
+}
+
+//或数列迭代：
+fun rangeUse3() {
+    for (x in 1..10 step 2) {
+        println(x)
+    }
+    println("-------------------")
+    for (x in 9 downTo 0 step 3) {
+        println(x)
+    }
+}
+
+//## 集合
+//对集合进行迭代
+fun iterateOverTheCollection() {
+    val items = listOf<Int>(1, 222, 6666, 333, 2, 3, 11, 63533, 90977)
+    for (item in items) {
+        println(item)
+    }
+}
+
+//使用 in 运算符来判断集合内是否包含某实例
+fun inOperator() {
+    val items = listOf<String>("A", "C", "D", "F", "G", "F", "B")
+    when {
+        "A" in items -> {
+            println("Apple")
+        }
+//        "B" in items -> {
+//            println("Banner")
+//        }
+//        "C" in items -> {
+//            println("Cross")
+//        }
+//        "D" in items -> {
+//            println("Desktop")
+//        }
+        else -> {
+            println("not find this")
+        }
+    }
+}
+
+//使用 lambda 表达式来过滤（filter）与映射（map）集合
+fun laAndFilerMap() {
+    val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+    fruits
+        .filter { it.startsWith("a") }
+        .sortedBy { it }
+        .map { it.toUpperCase() }
+        .forEach { println(it) }
+}
+
+//## 创建基本类及其实例
+fun createInstance() {
+    val rectangle = Rectangle(5.0, 2.0)
+    val triangle = Triangle(3.0, 4.0, 5.0)
+}
+
+abstract class Shape(val sides: List<Double>) {
+    val perimeter: Double get() = sides.sum()
+    abstract fun calculateArea(): Double
+}
+
+interface RectangleProperties {
+    val isSquare: Boolean
+}
+
+class Rectangle(
+    var height: Double,
+    var length: Double
+) : Shape(listOf(height, length, height, length)), RectangleProperties {
+    override val isSquare: Boolean get() = length == height
+    override fun calculateArea(): Double = height * length
+}
+
+class Triangle(
+    var sideA: Double,
+    var sideB: Double,
+    var sideC: Double
+) : Shape(listOf(sideA, sideB, sideC)) {
+    override fun calculateArea(): Double {
+        val s = perimeter / 2
+        return Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC))
+    }
+}

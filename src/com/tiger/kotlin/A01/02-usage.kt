@@ -1,8 +1,11 @@
-package com.tiger.kotlin.`01`
+package com.tiger.kotlin.A01
 
+import com.sun.xml.internal.bind.v2.TODO
+import java.awt.Rectangle
 import java.io.File
-import java.lang.IllegalStateException
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
+import java.math.BigDecimal
+import java.nio.file.Files
+import java.nio.file.Paths
 
 
 fun main(args: Array<String>) {
@@ -22,7 +25,18 @@ fun main(args: Array<String>) {
 
 //    ifNotNull()
 //    ifNotNullAndElse()
-    ifNull()
+//    ifNull()
+//    ifNull1()
+//    ifNotNull1()
+//    mappingNullableValues()
+//    test()
+//    fooo(1)
+//    val arrayOfMinusOnes = arrayOfMinusOnes(5)
+//    println(arrayOfMinusOnes.map { println(it) })
+//    configurationObjectProperties()
+//    getResource()
+
+    swapTwoVariables()
 }
 
 
@@ -187,3 +201,152 @@ fun ifNull() {
     val files = mapOf<String, String>("email" to "2222")
     files["e"] ?: throw IllegalStateException("E 的value 是null")
 }
+
+//## 在可能会空的集合中取第一元素
+fun ifNull1() {
+    val em = ""
+    val any = em.firstOrNull() ?: ""
+    println(any)
+}
+
+//## if not null 执行代码
+fun ifNotNull1() {
+    val em = null
+    em?.let {
+        println("假如em不为null,代码会执行到此处")
+    }
+}
+
+//## 映射可空值（如果非空的话）
+fun mappingNullableValues() {
+    val e = null
+    val defaultValue = "defaultValue"
+    // 如果该值或其转换结果为空，那么返回 defaultValue。
+    val mapped = e?.let { printlns(it) } ?: defaultValue
+    println(mapped)
+}
+
+fun printlns(value: Any) {
+    println(value ?: "null value")
+}
+
+//## 返回 when 表达式
+fun transform(color: String): Int {
+    return when (color) {
+        "Red" -> 0
+        "Green" -> 1
+        else -> throw IllegalArgumentException("Invalid color param value")
+    }
+}
+
+//## “try/catch”表达式
+fun test() {
+    val result = try {
+        count()
+    } catch (e: ArithmeticException) {
+        throw IllegalStateException(e)
+    }
+
+    // 使用 result
+    println(result)
+}
+
+fun count() {
+    println("---计算----")
+}
+
+//## “if”表达式
+fun fooo(pa: Int) {
+    val result = if (pa == 1) {
+        "1"
+    } else if (pa == 2) {
+        "2"
+    } else {
+        "3"
+    }
+    println(result)
+}
+
+//## 返回类型为 Unit 的方法的 Builder 风格用法
+fun arrayOfMinusOnes(size: Int): IntArray {
+    return IntArray(size).apply { fill(3) }
+}
+
+//## 单表达式函数
+fun theAnswer() = 422
+
+//和上面一样
+fun theAnswer1(): Int {
+    return 42
+}
+
+//单表达式函数与其它惯用法一起使用能简化代码，例如和 when 表达式一起使用：
+fun tansform(color: String): Int = when (color) {
+    "Red" -> 0
+    "Green" -> 1
+    else -> throw IllegalArgumentException("Invalid color param value")
+}
+
+//## 对一个对象实例调用多个方法 （with）
+fun objectInstance() {
+    val turtle = Turtle()
+    with(turtle) {
+        penDown()
+        for (i in 1..4) {
+            forward(100.0)
+            turn(90.0)
+        }
+        penUp()
+    }
+}
+
+//## 配置对象的属性（apply）
+fun configurationObjectProperties() {
+    val apply = Rectangle().apply {
+        width = 1
+        height = 11
+    }
+    val apply1 = Rectangle1().apply {
+        name = "Tiger"
+        street = "长安街001号"
+        city = "北京"
+        state = "良好"
+        zip = "10000"
+    }
+
+    println(apply1.toString())
+}
+
+//## Java 7 的 try with resources
+fun getResource() {
+    val newInputStream = Files.newInputStream(Paths.get("text.txt"))
+    newInputStream.bufferedReader().readText().reader().use { reader ->
+        println(reader.readText())
+    }
+}
+
+//## 对于需要泛型信息的泛型函数的适宜形式
+//inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
+
+//## 使用可空布尔
+fun nullBoolean() {
+    val boolean: Boolean? = null
+    if (boolean == true) {
+        println("true")
+    } else {
+        println("boolean 是 false 或者 null")
+    }
+}
+
+//## 交换两个变量
+fun swapTwoVariables() {
+    var a = 1
+    var b = 2
+    a = b.also { b = a }
+    println("$a,$b")
+}
+
+//## TODO()：将代码标记为不完整
+//Kotlin 的标准库有一个 TODO() 函数，该函数总是抛出一个 NotImplementedError。
+// 其返回类型为 Nothing，因此无论预期类型是什么都可以使用它。 还有一个接受原因参数的重载：
+fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")

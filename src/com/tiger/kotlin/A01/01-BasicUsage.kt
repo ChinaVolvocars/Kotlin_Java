@@ -1,4 +1,4 @@
-package com.tiger.kotlin.`01`
+package com.tiger.kotlin.A01
 
 fun main() {
 //    println(sum(1, 33))
